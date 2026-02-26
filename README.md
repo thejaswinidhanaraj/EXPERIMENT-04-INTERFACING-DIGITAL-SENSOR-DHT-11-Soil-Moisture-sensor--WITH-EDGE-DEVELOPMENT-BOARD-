@@ -1,4 +1,4 @@
- # EXPERIMENT-03-INTERFACING-DIGITAL-SENSOR-WITH-EDGE-DEVELOPMENT-BOARD-
+ # EXPERIMENT-04-INTERFACING-DIGITAL-SENSOR-DHT-11-Soil-Moisture-sensor--WITH-EDGE-DEVELOPMENT-BOARD-
 
 ---
 
@@ -10,13 +10,13 @@
 ---
 
 ## **AIM:**  
-To interface an **MPU6050 6-Axis Accelerometer & Gyroscope Sensor** with the **Raspberry Pi Pico** and display the sensor readings using MicroPython.
+To interface an **Temperature and humidity sensor (DHT 11) Soil Moisture Sensor** with the **Raspberry Pi 4** and display the sensor readings using HiveMQ cloud.
 
 ---
 
 ## **APPARATUS REQUIRED:**  
-1. Raspberry Pi Pico  
-2. MPU6050 6-Axis Accelerometer & Gyroscope Sensor  
+1. Raspberry Pi 4  
+2. Temperature and Humidity sensor (DHT-11) and Soil Moisture Sensor (REES52)  
 3. Jumper Wires  
 4. Breadboard  
 5. USB Cable  
