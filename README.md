@@ -45,23 +45,23 @@ The Soil Moisture Sensor (REES52) is a low-cost resistive-type sensor used to me
 
 ## Working Principle:
 Experiment 4A
-The Ultrasonic sensor Trig pin is connected to one of the GPIO pins of the Raspberry Pi 4.
-The Ultrasonic sensor Echo pin is connected to one of the GPIO pins of the Raspberry Pi 4.
-The Python script sets the take the distance taken echo output and shown in Thingspeak cloud with current status and Console.
+The Temperature and Humidity Sensor (DHT-11) OUT is connected to one of the GPIO pins of the Raspberry Pi 4.
+The Python script sets the measure the real time temperature and Humidity output and shown in HiveMQcloud with current status and Console.
 CIRCUIT DIAGRAM
-Connect the Vcc of the Ultrasonic sensor +5V in Raspberrry Pi4.
-Connect the Gnd of the Ultrasonic sensor Gnd in Raspberrry Pi4.
-Connect the Trig pin to any one GPIO.
-Connect the Echo pin to any one GPIO.
+Connect the Vcc of the Temperature and Humidity Sensor (DHT-11) is connected to +5V in Raspberrry Pi4.
+Connect the Gnd of the Temperature and Humidity Sensor (DHT-11) is connected to Gnd in Raspberrry Pi4.
+Connect the OUT to any one GPIO.
 
 
 Experiment 4B
-The IR sensor is connected one of the GPIO pins in Raspberry Pi 4.
-The Python script sets the PIR sensor value based on the motion detected and shown in Thingspeak and console.
+The Soil Moisture Sensor (REES52) D0 is connected one of the GPIO pins in Raspberry Pi 4.
+The Soil Moisture Sensor (REES52) A0 is connected one of the GPIO pins in Raspberry Pi 4.
+The Python script sets the Soil Moisture Sensor (REES52) value based on the variation in the temparature and humdity (Dry or Wet) and shown in HiveMQ Cloud and console.
 CIRCUIT DIAGRAM
-Connect the PIR sensor Vcc to any +5V.
-Connect the PIR sensor GND to any GND.
-Connect the PIR sensor OUT to any one GPIO. 
+Connect the Soil Moisture Sensor (REES52) Vcc to any +5V.
+Connect the Soil Moisture Sensor (REES52) GND to any GND.
+Connect the Soil Moisture Sensor (REES52) D0 to any one GPIO. 
+Connect the Soil Moisture Sensor (REES52) A0 to any one GPIO. 
 
 Experiment 4A
 ## PROGRAM (Python)
@@ -78,93 +78,37 @@ Experiment 4A
 ### OUPUT  
 Experiment 4A
 
-# FIGURE -02 ADD TITILE HERE 
+# FIGURE -04 ADD TITILE HERE 
 
-#  FIGURE -03 ADD TITILE HERE 
+#  FIGURE -05 ADD TITILE HERE 
 
-# FIGURE -04 ADD TITLE HERE 
+# FIGURE -06 ADD TITLE HERE 
 
 Experiment 4B
-
-# FIGURE -05 ADD TITILE HERE 
-
-#  FIGURE -06 ADD TITILE HERE 
-
-# FIGURE -07 ADD TITLE HERE 
-
-## **CIRCUIT DIAGRAM:**  
-### **Connections:**  
-
-| MPU6050 Pin | Raspberry Pi Pico Pin |
-|------------|----------------------|
-| VCC | 3.3V |
-| GND | GND |
-| SDA | GP20 |
-| SCL | GP21 |
-
----
-
-## **PROGRAM (MicroPython)**  
-```python
-from machine import Pin, I2C
-import utime
-
-# MPU6050 I2C address
-MPU6050_ADDR = 0x68
-
-# MPU6050 Registers
-PWR_MGMT_1 = 0x6B
-ACCEL_XOUT_H = 0x3B
-GYRO_XOUT_H = 0x43
-
-# Initialize I2C
-sda = Pin(20)  # Define your SDA pin
-scl = Pin(21)  # Define your SCL pin
-i2c = I2C(1, scl=scl, sda=sda, freq=400000)  # Use I2C1
-
-def mpu6050_init():
-    i2c.writeto_mem(MPU6050_ADDR, PWR_MGMT_1, b'\x00')  # Wake up MPU6050
-
-def read_raw_data(reg):
-    data = i2c.readfrom_mem(MPU6050_ADDR, reg, 2)
-    value = (data[0] << 8) | data[1]  # Combine high and low bytes
-    if value > 32767:
-        value -= 65536  # Convert to signed 16-bit
-    return value
-
-def get_sensor_data():
-    accel_x = read_raw_data(ACCEL_XOUT_H) / 16384.0  # Convert to g
-    accel_y = read_raw_data(ACCEL_XOUT_H + 2) / 16384.0
-    accel_z = read_raw_data(ACCEL_XOUT_H + 4) / 16384.0
-    
-    gyro_x = read_raw_data(GYRO_XOUT_H) / 131.0  # Convert to deg/s
-    gyro_y = read_raw_data(GYRO_XOUT_H + 2) / 131.0
-    gyro_z = read_raw_data(GYRO_XOUT_H + 4) / 131.0
-    
-    return (accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z)
-
-# Initialize MPU6050
-mpu6050_init()
-
-while True:
-    ax, ay, az, gx, gy, gz = get_sensor_data()
-    print(f"Accel: X={ax:.2f}g, Y={ay:.2f}g, Z={az:.2f}g | Gyro: X={gx:.2f}°/s, Y={gy:.2f}°/s, Z={gz:.2f}°/s")
-    utime.sleep(1)
+## PROGRAM (Python)
 ```
 
----
 
-## **OUTPUT:**  
-When the above program is executed, the output on the serial monitor will display real-time acceleration and gyroscope values, such as:
-```
-Accel: X=0.02g, Y=-0.01g, Z=1.00g | Gyro: X=0.05°/s, Y=-0.02°/s, Z=0.01°/s
-Accel: X=0.03g, Y=-0.02g, Z=1.01g | Gyro: X=0.06°/s, Y=-0.03°/s, Z=0.02°/s
-...
-```
----
+ 
+
+
+
+ 
+````
+
+### OUPUT  
+
+# FIGURE -07 ADD TITILE HERE 
+
+#  FIGURE -08 ADD TITILE HERE 
+
+# FIGURE -09 ADD TITLE HERE 
+
+
+
 
 ## **RESULT:**  
-The **MPU6050 sensor** was successfully interfaced with the **Raspberry Pi Pico**, and real-time **acceleration and gyroscope data** were read and displayed. The sensor values can be used for **motion tracking, tilt detection, and gesture control applications**.
+The **Temperature and humidity sensor (DHT 11) Soil Moisture Sensor (REES52)** was successfully interfaced with the **Raspberry Pi 4**, and real-time **Temperature, Humidity and Soil Moisture level** were read and displayed in Console and HiveMq Cloud. 
 
 ---
 
